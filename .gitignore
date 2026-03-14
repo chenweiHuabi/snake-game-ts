@@ -1,0 +1,30 @@
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE and Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# Temporary files
+*.tmp
+*.temp
+.tmp/
+
+# Project specific (subdirectories may have their own .gitignore)
+# tanchishe/ has its own .gitignore
+
+# Documentation build outputs (if any)
+_build/
+_site/

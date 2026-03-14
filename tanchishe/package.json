@@ -1,0 +1,20 @@
+{
+  "name": "snake-game",
+  "version": "1.0.0",
+  "description": "A classic Snake game built with TypeScript and HTML5 Canvas",
+  "main": "dist/game.js",
+  "scripts": {
+    "dev": "tsup src/game.ts --watch --format iife --global-name Game --out-dir dist --public-dir ./public",
+    "build": "tsup src/game.ts --format iife --global-name Game --minify --out-dir dist --public-dir ./public",
+    "preview": "serve dist",
+    "clean": "rm -rf dist"
+  },
+  "keywords": ["snake", "game", "typescript", "canvas"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0",
+    "serve": "^14.0.0"
+  }
+}
