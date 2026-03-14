@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Game - Classic Arcade</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">
+                <i class="fas fa-gamepad"></i>
+                Snake Game
+            </h1>
+            <p class="subtitle">A classic arcade experience rebuilt with TypeScript</p>
+        </header>
+
+        <main class="game-container">
+            <div class="game-wrapper">
+                <div class="game-header">
+                    <div class="score-board">
+                        <div class="score-item">
+                            <span class="score-label">SCORE</span>
+                            <span id="score" class="score-value">0</span>
+                        </div>
+                        <div class="score-item">
+                            <span class="score-label">HIGH SCORE</span>
+                            <span id="high-score" class="score-value">0</span>
+                        </div>
+                    </div>
+
+                    <div class="game-controls">
+                        <button id="start-btn" class="btn btn-primary">
+                            <i class="fas fa-play"></i>
+                            Start Game
+                        </button>
+                        <button id="pause-btn" class="btn btn-secondary" disabled>
+                            <i class="fas fa-pause"></i>
+                            Pause
+                        </button>
+                        <button id="reset-btn" class="btn btn-danger">
+                            <i class="fas fa-redo"></i>
+                            Reset
+                        </button>
+                    </div>
+                </div>
+
+                <div class="game-canvas-container">
+                    <canvas id="game-canvas" width="600" height="400"></canvas>
+                    <div id="game-overlay" class="game-overlay">
+                        <div class="overlay-content">
+                            <h2 id="overlay-title">Snake Game</h2>
+                            <p id="overlay-message">Press START or SPACEBAR to begin</p>
+                            <div class="overlay-controls">
+                                <button id="overlay-start-btn" class="btn btn-primary btn-large">
+                                    <i class="fas fa-play"></i>
+                                    Start Game
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="game-instructions">
+                    <h3 class="instructions-title">
+                        <i class="fas fa-info-circle"></i>
+                        How to Play
+                    </h3>
+                    <div class="instructions-grid">
+                        <div class="instruction-item">
+                            <div class="instruction-icon">
+                                <i class="fas fa-arrow-up"></i>
+                            </div>
+                            <div class="instruction-text">
+                                <strong>Arrow Keys</strong>
+                                <p>Control the snake's direction</p>
+                            </div>
+                        </div>
+                        <div class="instruction-item">
+                            <div class="instruction-icon">
+                                <i class="fas fa-space-awesome"></i>
+                            </div>
+                            <div class="instruction-text">
+                                <strong>Spacebar</strong>
+                                <p>Start/Pause the game</p>
+                            </div>
+                        </div>
+                        <div class="instruction-item">
+                            <div class="instruction-icon">
+                                <i class="fas fa-redo"></i>
+                            </div>
+                            <div class="instruction-text">
+                                <strong>R Key</strong>
+                                <p>Reset the game</p>
+                            </div>
+                        </div>
+                        <div class="instruction-item">
+                            <div class="instruction-icon">
+                                <i class="fas fa-apple-alt"></i>
+                            </div>
+                            <div class="instruction-text">
+                                <strong>Eat Food</strong>
+                                <p>Grow longer and earn points</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="game-sidebar">
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">
+                        <i class="fas fa-cog"></i>
+                        Game Settings
+                    </h3>
+                    <div class="settings-group">
+                        <div class="setting">
+                            <label for="speed-select">Game Speed</label>
+                            <select id="speed-select" class="setting-select">
+                                <option value="8">Slow</option>
+                                <option value="10" selected>Normal</option>
+                                <option value="12">Fast</option>
+                                <option value="15">Extreme</option>
+                            </select>
+                        </div>
+                        <div class="setting">
+                            <label for="grid-size-select">Grid Size</label>
+                            <select id="grid-size-select" class="setting-select">
+                                <option value="15">Small (15x10)</option>
+                                <option value="20" selected>Medium (20x15)</option>
+                                <option value="25">Large (25x20)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">
+                        <i class="fas fa-chart-line"></i>
+                        Game Stats
+                    </h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-label">Food Eaten</span>
+                            <span id="food-eaten" class="stat-value">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Snake Length</span>
+                            <span id="snake-length" class="stat-value">3</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Game Time</span>
+                            <span id="game-time" class="stat-value">0s</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Moves Made</span>
+                            <span id="moves-made" class="stat-value">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">
+                        <i class="fas fa-history"></i>
+                        Game History
+                    </h3>
+                    <div class="history-list">
+                        <div class="history-item">Game started</div>
+                        <div class="history-item">Ready to play!</div>
+                    </div>
+                    <button id="clear-history-btn" class="btn btn-text">
+                        <i class="fas fa-trash"></i>
+                        Clear History
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-text">
+                    <p>
+                        <i class="fas fa-code"></i>
+                        Built with TypeScript, HTML5 Canvas & tsup
+                    </p>
+                    <p class="footer-note">
+                        Use arrow keys to control the snake. Avoid walls and yourself!
+                    </p>
+                </div>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">
+                        <i class="fab fa-github"></i>
+                        GitHub
+                    </a>
+                    <a href="#" class="footer-link">
+                        <i class="fas fa-question-circle"></i>
+                        Help
+                    </a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="game.global.js"></script>
+</body>
+</html>
